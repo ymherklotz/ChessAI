@@ -113,7 +113,7 @@ namespace chess_ai {
     public:
         
         // Initialises the chess piece to an empty square on the board 
-        chess_piece();
+        chess_piece() : type(empty), colour(none), x(0), y(0) {}
 
         // Otherwise initialise the chess piece to a king or queen where the
         // location is alreay known
@@ -151,6 +151,12 @@ namespace chess_ai {
         // overload ++ operator for pawns
         chess_piece& operator++() {
             return *this;
+        }
+
+        chess_piece operator++(int) {
+            chess_piece tmp(*this);
+            operator++();
+            return tmp;
         }
 
         // return a printable version of the square

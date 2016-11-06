@@ -1,12 +1,5 @@
 #include "../include/chess_ai.hpp"
 
-chess_ai::chess_piece::chess_piece() {
-    type = empty;
-    colour = none;
-    x = -1;
-    y = -1;
-}
-
 chess_ai::chess_piece::chess_piece(piece_type type, piece_colour colour) {
     this->type = type;
     this->colour = colour;

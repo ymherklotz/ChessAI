@@ -141,7 +141,7 @@ namespace chess_ai {
         // overloading operators
 
         // so that we can make two copies of a point
-        chess_piece& operator=(const chess_piece& piece) {
+        chess_piece& operator==(const chess_piece& piece) {
             if(this != &piece) {
                 this->set(piece.type, piece.colour, piece.x, piece.y);
             }

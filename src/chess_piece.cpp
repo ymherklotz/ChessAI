@@ -55,6 +55,12 @@ chess_ai::chess_piece& chess_ai::chess_piece::operator==(const chess_piece&
 }
 
 chess_ai::chess_piece& chess_ai::chess_piece::operator++() {
+    if(type == pawn) {
+        if(colour == white)
+            --y;
+        else
+            ++y;
+    }
     return *this;
 }
 

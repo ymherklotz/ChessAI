@@ -106,48 +106,42 @@ void chess_ai::chess_board::print_board() {
 }
 
 void chess_ai::chess_board::set_piece(chess_piece piece) {
-    unsigned vec_index, sqr_index;
-    for(vector_iterator it_vec = grid.begin(); it_vec != grid.end(); ++it_vec) {
-        for(square_iterator it_sqr = (*it_vec).begin();
-            it_sqr != (*it_vec).end(); ++it_sqr) {
-            vec_index = it_vec - grid.begin();
-            sqr_index = it_sqr - (*it_vec).begin();
-            
-            if(vec_index == piece.y && sqr_index == piece.x) {
-                *it_sqr = piece;
-            }
-        }
-    }
+    square_iterator it_sqr;
+    *iterate_board(it_sqr, piece.x, piece.y) = piece;
 }
 
 void chess_ai::chess_board::remove_piece(chess_piece piece) {
-    square_iterator it_sqr;
-    iterate_board(piece.x, piece.y, it_sqr);
-    *it_sqr = piece;
+    remove_piece(piece.x, piece.y);
 }
 
 void chess_ai::chess_board::remove_piece(unsigned x, unsigned y) {
-    unsigned vec_index, sqr_index;
-    for(vector_iterator it_vec = grid.begin(); it_vec != grid.end(); ++it_vec) {
-        for(square_iterator it_sqr = (*it_vec).begin();
-            it_sqr != (*it_vec).end(); ++it_sqr) {
-            vec_index = it_vec - grid.begin();
-            sqr_index = it_sqr - (*it_vec).begin();
-            
-            if(vec_index == y && sqr_index == x) {
-                chess_piece empty_piece;
-                *it_sqr = empty_piece;
-            }
-        }
-    }
+    square_iterator it_sqr;
+    *iterate_board(it_sqr, x, y) = chess_piece();
 }
 
 void chess_ai::chess_board::move_piece(chess_piece piece) {
+    move_piece(piece.x, piece.y);
+}
+
+void chess_ai::chess_board::move_piece(unsigned x, unsigned y) {
+    square_iterator it;
+    iterate_board(it, x, y);
+
+    ++(*it);
+}
+
+void chess_ai::chess_board::move_piece(chess_ai::chess_piece piece,
+                                       unsigned x, unsigned y) {
+    move_piece(piece.x, piece.y, x, y);
+}
+
+void chess_ai::chess_board::move_piece(unsigned orig_x, unsigned orig_y,
+                                       unsigned dest_x, unsigned dest_y) {
     
 }
 
-void chess_ai::chess_board::iterate_board(unsigned x, unsigned y,
-                                          square_iterator& it) {
+chess_ai::square_iterator& chess_ai::chess_board::iterate_board(
+                     square_iterator& it, unsigned x, unsigned y) {
     unsigned vec_index, sqr_index;
     for(vector_iterator it_vec = grid.begin(); it_vec != grid.end(); ++it_vec) {
         for(square_iterator it_sqr = (*it_vec).begin();
@@ -157,7 +151,9 @@ void chess_ai::chess_board::iterate_board(unsigned x, unsigned y,
             
             if(vec_index == y && sqr_index == x) {
                 it = it_sqr;
+                return it;
             }
         }
     }
+    return it;
 }

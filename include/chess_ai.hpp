@@ -102,15 +102,12 @@ iterator vector_iterator;
 
         // move a piece from coordinates
         void move_piece(unsigned x, unsigned y);
+        void move_piece(unsigned orig_x, unsigned orig_y, unsigned dest_x,
+                        unsigned dest_y);
+        void move_piece(chess_piece piece, unsigned x, unsigned y);
 
-        // find a piece on the board using coordinates
-        void find_piece(unsigned x, unsigned y);
-        
-        // iterate through the list with point
-        void iterate_board(chess_piece piece, square_iterator& it);
-        
         // iterate through the list and return the pointer to change
-        void iterate_board(unsigned x, unsigned y, square_iterator& it);
+        square_iterator& iterate_board(square_iterator& it, unsigned x, unsigned y);
 
 
 

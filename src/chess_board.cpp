@@ -121,19 +121,9 @@ void chess_ai::chess_board::set_piece(chess_piece piece) {
 }
 
 void chess_ai::chess_board::remove_piece(chess_piece piece) {
-    unsigned vec_index, sqr_index;
-    for(vector_iterator it_vec = grid.begin(); it_vec != grid.end(); ++it_vec) {
-        for(square_iterator it_sqr = (*it_vec).begin();
-            it_sqr != (*it_vec).end(); ++it_sqr) {
-            vec_index = it_vec - grid.begin();
-            sqr_index = it_sqr - (*it_vec).begin();
-            
-            if(vec_index == piece.y && sqr_index == piece.x) {
-                chess_piece empty_piece;
-                *it_sqr = empty_piece;
-            }
-        }
-    }
+    square_iterator it_sqr;
+    iterate_board(piece.x, piece.y, it_sqr);
+    *it_sqr = piece;
 }
 
 void chess_ai::chess_board::remove_piece(unsigned x, unsigned y) {

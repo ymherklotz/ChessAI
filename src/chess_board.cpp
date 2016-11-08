@@ -1,14 +1,10 @@
 #include "../include/chess_ai.hpp"
 
-typedef std::vector<std::vector<chess_ai::chess_piece>>::
-iterator vector_iterator;
-typedef std::vector<chess_ai::chess_piece>::iterator square_iterator;
-
-chess_ai::chess_board::chess_board() {
+chess_ai::chess_board::chess_board() : SIZE(CHESS_BOARD_SIZE) {
     init_board_vector();
 }
 
-chess_ai::chess_board::chess_board(board_state state) {
+chess_ai::chess_board::chess_board(board_state state) : SIZE(CHESS_BOARD_SIZE){
     unsigned vec_index, sqr_index;
 
     init_board_vector();
@@ -151,6 +147,26 @@ void chess_ai::chess_board::remove_piece(unsigned x, unsigned y) {
             if(vec_index == y && sqr_index == x) {
                 chess_piece empty_piece;
                 *it_sqr = empty_piece;
+            }
+        }
+    }
+}
+
+void chess_ai::chess_board::move_piece(chess_piece piece) {
+    
+}
+
+void chess_ai::chess_board::iterate_board(unsigned x, unsigned y,
+                                          square_iterator& it) {
+    unsigned vec_index, sqr_index;
+    for(vector_iterator it_vec = grid.begin(); it_vec != grid.end(); ++it_vec) {
+        for(square_iterator it_sqr = (*it_vec).begin();
+            it_sqr != (*it_vec).end(); ++it_sqr) {
+            vec_index = it_vec - grid.begin();
+            sqr_index = it_sqr - (*it_vec).begin();
+            
+            if(vec_index == y && sqr_index == x) {
+                it = it_sqr;
             }
         }
     }

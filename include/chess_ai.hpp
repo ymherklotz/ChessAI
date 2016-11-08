@@ -15,6 +15,10 @@ namespace chess_ai {
     class chess_board;
     class chess_piece;
 
+    typedef std::vector<std::vector<chess_ai::chess_piece>>::
+iterator vector_iterator;
+    typedef std::vector<chess_ai::chess_piece>::iterator square_iterator;
+
     // Describes the different types of chess pieces there are on the board
     enum piece_type : unsigned {
         // A pawn can only move forward twice on the first move, otherwise only
@@ -92,7 +96,24 @@ namespace chess_ai {
 
         // remove piece at a specific location only
         void remove_piece(unsigned x, unsigned y);
+
+        // move a piece according to the chess rules
+        void move_piece(chess_piece piece);
+
+        // move a piece from coordinates
+        void move_piece(unsigned x, unsigned y);
+
+        // find a piece on the board using coordinates
+        void find_piece(unsigned x, unsigned y);
         
+        // iterate through the list with point
+        void iterate_board(chess_piece piece, square_iterator& it);
+        
+        // iterate through the list and return the pointer to change
+        void iterate_board(unsigned x, unsigned y, square_iterator& it);
+
+
+
     protected:
 
         void init_board_vector();
@@ -101,7 +122,7 @@ namespace chess_ai {
         
         // The size of the chess board is a constant and hence defined by a
         // preprocessed define statement.
-        unsigned const SIZE = CHESS_BOARD_SIZE;
+        const unsigned SIZE;
 
         // The actual board where the values of the pieces will be changed.
         std::vector<std::vector<chess_piece>> grid;
@@ -141,23 +162,11 @@ namespace chess_ai {
         // overloading operators
 
         // so that we can make two copies of a point
-        chess_piece& operator==(const chess_piece& piece) {
-            if(this != &piece) {
-                this->set(piece.type, piece.colour, piece.x, piece.y);
-            }
-            return *this;
-        }
+        chess_piece& operator==(const chess_piece& piece);
 
         // overload ++ operator for pawns
-        chess_piece& operator++() {
-            return *this;
-        }
-
-        chess_piece operator++(int) {
-            chess_piece tmp(*this);
-            operator++();
-            return tmp;
-        }
+        chess_piece& operator++();
+        chess_piece operator++(int);
 
         // return a printable version of the square
         std::string str();

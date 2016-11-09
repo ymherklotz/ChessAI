@@ -30,7 +30,9 @@ int main(int argc, char** argv) {
     
     board.print_board();
 
-    board.move_piece(4, 6, 4, 5);
+    board.move_piece(4, 6, 4, 4);
+    board.move_piece(4, 1, 4, 3);
+    board.move_piece(3, 6, 3, 5);
     
     board.print_board();
     

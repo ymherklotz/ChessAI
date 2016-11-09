@@ -107,7 +107,8 @@ iterator vector_iterator;
         void move_piece(chess_piece piece, unsigned x, unsigned y);
 
         // iterate through the list and return the pointer to change
-        square_iterator& iterate_board(square_iterator& it, unsigned x, unsigned y);
+        square_iterator& iterate_board(square_iterator& it, unsigned x,
+                                       unsigned y);
 
 
 

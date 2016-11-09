@@ -2,6 +2,7 @@
 
 chess_ai::chess_piece::chess_piece(piece_type type, piece_colour colour) :
     type(type), colour(colour) {
+    
     if(colour == black) {
         y = 0;
     } else {
@@ -15,12 +16,9 @@ chess_ai::chess_piece::chess_piece(piece_type type, piece_colour colour) :
     }
 }
 
-chess_ai::chess_piece::chess_piece(
-                                   piece_type type,
-                                   piece_colour colour,
-                                   unsigned x,
-                                   unsigned y
-                                   ) : type(type), colour(colour), x(x), y(y) {}
+chess_ai::chess_piece::chess_piece(piece_type type, piece_colour colour,
+                                   unsigned x, unsigned y) :
+    type(type), colour(colour), x(x), y(y) {}
 
 void chess_ai::chess_piece::set_type(piece_type type) {
     this->type = type;

@@ -19,7 +19,7 @@ namespace chess_ai {
     enum board_state : unsigned;
 
     // defines the errors that can happen when moving a piece
-    enum movement_flag : unsigned;
+    enum move_error : unsigned;
     
     // The chess board that will be played on
     class chess_board;
@@ -28,8 +28,10 @@ namespace chess_ai {
     class chess_piece;
 
     // typedefs for iterators to access elements easier
+    
     typedef std::vector<std::vector<chess_ai::chess_piece>>::
-iterator vector_iterator;
+    iterator vector_iterator;
+    
     typedef std::vector<chess_ai::chess_piece>::iterator square_iterator;
 
     enum piece_type : unsigned {
@@ -84,7 +86,7 @@ iterator vector_iterator;
         clear
     };
 
-    enum movement_flag : unsigned {
+    enum move_error : unsigned {
         // when king is in check there are limited possibilities
         move_error_KingInCheckAfterMove,
         // when there is a friendly piece in the way
@@ -125,13 +127,21 @@ iterator vector_iterator;
         void remove_piece(unsigned x, unsigned y);
 
         // move a piece according to the chess rules
-        movement_flag move_piece(chess_piece piece);
-        movement_flag move_piece(unsigned x, unsigned y);
-        movement_flag move_piece(unsigned orig_x, unsigned orig_y, unsigned dest_x,
-                                 unsigned dest_y);
-        movement_flag move_piece(unsigned orig_x, unsigned orig_y, unsigned dest_x,
-                                 unsigned dest_y, chess_piece& taken_piece);
-        movement_flag move_piece(chess_piece piece, unsigned x, unsigned y);
+        move_error move_piece(chess_piece piece);
+
+        // move piece using only x and y (for pawns)
+        move_error move_piece(unsigned x, unsigned y);
+
+        // move piece with x and y as original and final destination
+        move_error move_piece(unsigned orig_x, unsigned orig_y,
+                                 unsigned dest_x, unsigned dest_y);
+
+        // move piece and return a piece that has been captured
+        move_error move_piece(unsigned orig_x, unsigned orig_y,
+                                 unsigned dest_x, unsigned dest_y,
+                                 chess_piece& taken_piece);
+        
+        move_error move_piece(chess_piece piece, unsigned x, unsigned y);
 
         // iterate through the list and return the pointer to change
         square_iterator& iterate_board(square_iterator& it, unsigned x,
@@ -144,7 +154,7 @@ iterator vector_iterator;
         void init_board_vector();
 
         // moves the pawn
-        movement_flag move_pawn(square_iterator it, square_iterator new_it,
+        move_error move_pawn(square_iterator it, square_iterator new_it,
                                 chess_piece& taken_piece);
         
         // The size of the chess board is a constant and hence defined by a

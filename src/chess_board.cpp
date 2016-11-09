@@ -4,7 +4,7 @@ chess_ai::chess_board::chess_board() : SIZE(CHESS_BOARD_SIZE) {
     init_board_vector();
 }
 
-chess_ai::chess_board::chess_board(board_state state) : SIZE(CHESS_BOARD_SIZE){
+chess_ai::chess_board::chess_board(board_state state) : SIZE(CHESS_BOARD_SIZE) {
     unsigned vec_index, sqr_index;
 
     init_board_vector();
@@ -119,12 +119,11 @@ void chess_ai::chess_board::remove_piece(unsigned x, unsigned y) {
     *iterate_board(it_sqr, x, y) = chess_piece();
 }
 
-chess_ai::movement_flag chess_ai::chess_board::move_piece(chess_piece piece) {
+chess_ai::move_error chess_ai::chess_board::move_piece(chess_piece piece) {
     return move_piece(piece.x, piece.y);
 }
 
-chess_ai::movement_flag chess_ai::chess_board::move_piece(unsigned x,
-                                                          unsigned y) {
+chess_ai::move_error chess_ai::chess_board::move_piece(unsigned x, unsigned y) {
     square_iterator it;
     iterate_board(it, x, y);
     
@@ -136,19 +135,23 @@ chess_ai::movement_flag chess_ai::chess_board::move_piece(unsigned x,
     return move_error_IllegalMove;
 }
 
-chess_ai::movement_flag chess_ai::chess_board::move_piece(
-       chess_ai::chess_piece piece, unsigned x, unsigned y) {
+chess_ai::move_error chess_ai::chess_board::move_piece
+(chess_ai::chess_piece piece, unsigned x, unsigned y) {
+    
     return move_piece(piece.x, piece.y, x, y);
 }
 
-chess_ai::movement_flag chess_ai::chess_board::move_piece(unsigned orig_x,
-        unsigned orig_y, unsigned dest_x, unsigned dest_y) {
+chess_ai::move_error chess_ai::chess_board::move_piece
+(unsigned orig_x, unsigned orig_y, unsigned dest_x, unsigned dest_y) {
+    
     chess_piece taken;
     return move_piece(orig_x, orig_y, dest_x, dest_y, taken);
 }
-chess_ai::movement_flag chess_ai::chess_board::move_piece(unsigned orig_x,
-        unsigned orig_y, unsigned dest_x,
-        unsigned dest_y, chess_piece& taken_piece) {
+
+chess_ai::move_error chess_ai::chess_board::move_piece
+(unsigned orig_x, unsigned orig_y, unsigned dest_x, unsigned dest_y,
+ chess_piece& taken_piece) {
+    
     square_iterator it;
     square_iterator new_it;
     
@@ -169,8 +172,9 @@ chess_ai::movement_flag chess_ai::chess_board::move_piece(unsigned orig_x,
     }
 }
 
-chess_ai::square_iterator& chess_ai::chess_board::iterate_board(
-        square_iterator& it, unsigned x, unsigned y) {
+chess_ai::square_iterator& chess_ai::chess_board::iterate_board
+(square_iterator& it, unsigned x, unsigned y) {
+    
     unsigned vec_index, sqr_index;
     for(vector_iterator it_vec = grid.begin(); it_vec != grid.end(); ++it_vec) {
         for(square_iterator it_sqr = (*it_vec).begin();
@@ -187,8 +191,9 @@ chess_ai::square_iterator& chess_ai::chess_board::iterate_board(
     return it;
 }
 
-chess_ai::movement_flag chess_ai::chess_board::move_pawn(square_iterator it,
-        square_iterator new_it, chess_piece& taken_piece) {
+chess_ai::move_error chess_ai::chess_board::move_pawn
+(square_iterator it, square_iterator new_it, chess_piece& taken_piece) {
+    
     chess_piece piece(it->type, it->colour, new_it->x, new_it->y);
 
     if((new_it->y - it->y == 2 && it->y == 1) ||

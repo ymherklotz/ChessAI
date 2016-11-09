@@ -46,30 +46,6 @@ void chess_ai::chess_piece::set(piece_type type, piece_colour colour,
     set_y(y);
 }
 
-chess_ai::chess_piece& chess_ai::chess_piece::operator==(const chess_piece&
-                                                         piece) {
-    if(this != &piece) {
-        this->set(piece.type, piece.colour, piece.x, piece.y);
-    }
-    return *this;
-}
-
-chess_ai::chess_piece& chess_ai::chess_piece::operator++() {
-    if(type == pawn) {
-        if(colour == white)
-            --y;
-        else
-            ++y;
-    }
-    return *this;
-}
-
-chess_ai::chess_piece chess_ai::chess_piece::operator++(int) {
-    chess_piece tmp(*this);
-    operator++();
-    return tmp;
-}
-
 std::string chess_ai::chess_piece::str() {
     if(type == empty)
         return " ";

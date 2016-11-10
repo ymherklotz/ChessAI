@@ -112,6 +112,9 @@ namespace chess_ai {
 
         // Create a chess board depending on the state
         chess_board(board_state state);
+
+        // destructor to clean up the variables
+        ~chess_board();
         
         // prints the current board state
         void print_board();
@@ -132,6 +135,9 @@ namespace chess_ai {
         // move piece using only x and y (for pawns)
         move_error move_piece(unsigned x, unsigned y);
 
+        // moves a piece to an x, y coordinate
+        move_error move_piece(chess_piece piece, unsigned x, unsigned y);
+        
         // move piece with x and y as original and final destination
         move_error move_piece(unsigned orig_x, unsigned orig_y,
                                  unsigned dest_x, unsigned dest_y);
@@ -140,8 +146,6 @@ namespace chess_ai {
         move_error move_piece(unsigned orig_x, unsigned orig_y,
                                  unsigned dest_x, unsigned dest_y,
                                  chess_piece& taken_piece);
-        
-        move_error move_piece(chess_piece piece, unsigned x, unsigned y);
 
         // iterate through the list and return the pointer to change
         square_iterator& iterate_board(square_iterator& it, unsigned x,
@@ -153,7 +157,7 @@ namespace chess_ai {
         // initialises vector
         void init_board_vector();
 
-        // moves the pawn
+        // moves the pawn and tests all the cases that it should.
         move_error move_pawn(square_iterator it, square_iterator new_it,
                                 chess_piece& taken_piece);
         
@@ -179,6 +183,9 @@ namespace chess_ai {
         // Finally initialise the chess piece to a specified piece
         chess_piece(piece_type type, piece_colour colour, unsigned x,
                     unsigned y);
+
+        // destructor to clean up the variables
+        ~chess_piece();
 
         // Set the type of the chess_piece
         void set_type(piece_type type);

@@ -20,6 +20,8 @@ chess_ai::chess_piece::chess_piece(piece_type type, piece_colour colour,
                                    unsigned x, unsigned y) :
     type(type), colour(colour), x(x), y(y) {}
 
+chess_ai::chess_piece::~chess_piece() {}
+
 void chess_ai::chess_piece::set_type(piece_type type) {
     this->type = type;
 }

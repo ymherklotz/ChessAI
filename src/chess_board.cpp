@@ -62,6 +62,8 @@ chess_ai::chess_board::chess_board(board_state state) : SIZE(CHESS_BOARD_SIZE) {
     }
 }
 
+chess_ai::chess_board::~chess_board() {}
+
 void chess_ai::chess_board::init_board_vector() {
     for(unsigned i = 0; i < SIZE; ++i) {
         std::vector<chess_ai::chess_piece> tmp_vec;
@@ -158,7 +160,6 @@ chess_ai::move_error chess_ai::chess_board::move_piece
     iterate_board(it, orig_x, orig_y);
     iterate_board(new_it, dest_x, dest_y);
     
-
     switch(it->type) {
     case pawn:
         return move_pawn(it, new_it, taken_piece);

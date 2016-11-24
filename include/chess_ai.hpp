@@ -3,8 +3,8 @@
 
 #define CHESS_BOARD_SIZE 8
 
-#include <vector>
 #include <iostream>
+#include <vector>
 #include <string>
 
 namespace chess_ai {
@@ -150,6 +150,13 @@ namespace chess_ai {
 
         // overload ++ operator for pawns
         chess_piece& operator++() {
+            if(this->type == pawn) {
+                if(this->colour == white) {
+                    --pawn->y;
+                } else {
+                    ++pawn->y;
+                }
+            }
             return *this;
         }
 

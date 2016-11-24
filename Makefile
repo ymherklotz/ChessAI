@@ -7,7 +7,11 @@ TARGET := bin/chess_ai
 SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name "*.$(SRCEXT)")
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
+<<<<<<< HEAD
 CFLAGS := -g -Wall -Wextra -std=c++14
+=======
+CFLAGS := -g -Wall -Wextra -Wpedantic -std=c++14
+>>>>>>> 95f75aa7aacf5e0e1ef11e8d200f84de44bd891f
 LIB := 
 INC := -I include
 

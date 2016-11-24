@@ -1,16 +1,8 @@
 #include "../include/chess_ai.hpp"
 
-chess_ai::chess_piece::chess_piece() {
-    type = empty;
-    colour = none;
-    x = -1;
-    y = -1;
-}
-
-chess_ai::chess_piece::chess_piece(piece_type type, piece_colour colour) {
-    this->type = type;
-    this->colour = colour;
-
+chess_ai::chess_piece::chess_piece(piece_type type, piece_colour colour) :
+    type(type), colour(colour) {
+    
     if(colour == black) {
         y = 0;
     } else {
@@ -25,13 +17,10 @@ chess_ai::chess_piece::chess_piece(piece_type type, piece_colour colour) {
 }
 
 chess_ai::chess_piece::chess_piece(piece_type type, piece_colour colour,
-                                   unsigned x, unsigned y) {
-    this->type = type;
-    this->colour = colour;
-    this->x = x;
-    this->y = y;
-    
-}
+                                   unsigned x, unsigned y) :
+    type(type), colour(colour), x(x), y(y) {}
+
+chess_ai::chess_piece::~chess_piece() {}
 
 void chess_ai::chess_piece::set_type(piece_type type) {
     this->type = type;
@@ -47,6 +36,14 @@ void chess_ai::chess_piece::set_x(unsigned x) {
 
 void chess_ai::chess_piece::set_y(unsigned y) {
     this->y = y;
+}
+
+void chess_ai::chess_piece::set(piece_type type, piece_colour colour,
+                                unsigned x, unsigned y) {
+    set_type(type);
+    set_colour(colour);
+    set_x(x);
+    set_y(y);
 }
 
 std::string chess_ai::chess_piece::str() {

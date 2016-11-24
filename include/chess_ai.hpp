@@ -9,13 +9,31 @@
 
 namespace chess_ai {
 
+    // Describes the different types of chess pieces there are on the board
     enum piece_type : unsigned;
+
+    // Describes the colour of the pieces
     enum piece_colour : unsigned;
+
+    // just describes if the board is full or empty
     enum board_state : unsigned;
+
+    // defines the errors that can happen when moving a piece
+    enum move_error : unsigned;
+
+    // The chess board that will be played on
     class chess_board;
+
+    // Any chess piece in the game
     class chess_piece;
 
-    // Describes the different types of chess pieces there are on the board
+    // typedefs for iterators to access elements easier
+
+    typedef std::vector<std::vector<chess_ai::chess_piece>>::
+    iterator vector_iterator;
+
+    typedef std::vector<chess_ai::chess_piece>::iterator square_iterator;
+
     enum piece_type : unsigned {
         // A pawn can only move forward twice on the first move, otherwise only
         // once. It only take pieces that are on the diagonals in front of it,
@@ -47,7 +65,6 @@ namespace chess_ai {
         empty
     };
 
-    // Describes the colour of the pieces
     enum piece_colour : unsigned {
         // Looking at the board white will be at the bottom
         white,
@@ -57,7 +74,6 @@ namespace chess_ai {
         none
     };
 
-    // just describes if the board is full or empty
     enum board_state : unsigned {
         // The starting position of the board with all pieces in the right
         // position
@@ -70,7 +86,24 @@ namespace chess_ai {
         clear
     };
 
-    // The chess board that will be played on
+    enum move_error : unsigned {
+        // when king is in check there are limited possibilities
+        move_error_KingInCheckAfterMove,
+        // when there is a friendly piece in the way
+        move_error_FriendlyPieceOnDestination,
+        // when there is an enemy piece blocking the way
+        move_error_EnemyPieceOnDestination,
+        // illegal move for chose piece
+        move_error_IllegalMove,
+
+        // when the move is successful
+        move_Success,
+        // when a move leads to a check
+        move_Check,
+        // when a move leads to a checkmate
+        move_Checkmate,
+    };
+
     class chess_board {
     public:
 
@@ -79,7 +112,10 @@ namespace chess_ai {
 
         // Create a chess board depending on the state
         chess_board(board_state state);
-        
+
+        // destructor to clean up the variables
+        ~chess_board();
+
         // prints the current board state
         void print_board();
 
@@ -92,28 +128,53 @@ namespace chess_ai {
 
         // remove piece at a specific location only
         void remove_piece(unsigned x, unsigned y);
-        
-    protected:
 
-        void init_board_vector();
-        
+        // move a piece according to the chess rules
+        move_error move_piece(chess_piece piece);
+
+        // move piece using only x and y (for pawns)
+        move_error move_piece(unsigned x, unsigned y);
+
+        // moves a piece to an x, y coordinate
+        move_error move_piece(chess_piece piece, unsigned x, unsigned y);
+
+        // move piece with x and y as original and final destination
+        move_error move_piece(unsigned orig_x, unsigned orig_y,
+                                 unsigned dest_x, unsigned dest_y);
+
+        // move piece and return a piece that has been captured
+        move_error move_piece(unsigned orig_x, unsigned orig_y,
+                                 unsigned dest_x, unsigned dest_y,
+                                 chess_piece& taken_piece);
+
+        // iterate through the list and return the pointer to change
+        square_iterator& iterate_board(square_iterator& it, unsigned x,
+                                       unsigned y);
+
+
     private:
-        
+
+        // initialises vector
+        void init_board_vector();
+
+        // moves the pawn and tests all the cases that it should.
+        move_error move_pawn(square_iterator it, square_iterator new_it,
+                                chess_piece& taken_piece);
+
         // The size of the chess board is a constant and hence defined by a
         // preprocessed define statement.
-        unsigned const SIZE = CHESS_BOARD_SIZE;
+        const unsigned SIZE;
 
         // The actual board where the values of the pieces will be changed.
         std::vector<std::vector<chess_piece>> grid;
     };
 
-    // Any chess piece in the game
     class chess_piece {
         friend class chess_board;
     public:
-        
-        // Initialises the chess piece to an empty square on the board 
-        chess_piece();
+
+        // Initialises the chess piece to an empty square on the board
+        chess_piece() : type(empty), colour(none), x(0), y(0) {}
 
         // Otherwise initialise the chess piece to a king or queen where the
         // location is alreay known
@@ -122,6 +183,9 @@ namespace chess_ai {
         // Finally initialise the chess piece to a specified piece
         chess_piece(piece_type type, piece_colour colour, unsigned x,
                     unsigned y);
+
+        // destructor to clean up the variables
+        ~chess_piece();
 
         // Set the type of the chess_piece
         void set_type(piece_type type);
@@ -138,32 +202,9 @@ namespace chess_ai {
         // set the different values
         void set(piece_type type, piece_colour colour, unsigned x, unsigned y);
 
-        // overloading operators
-
-        // so that we can make two copies of a point
-        chess_piece& operator=(const chess_piece& piece) {
-            if(this != &piece) {
-                this->set(piece.type, piece.colour, piece.x, piece.y);
-            }
-            return *this;
-        }
-
-        // overload ++ operator for pawns
-        chess_piece& operator++() {
-            if(this->type == pawn) {
-                if(this->colour == white) {
-                    --pawn->y;
-                } else {
-                    ++pawn->y;
-                }
-            }
-            return *this;
-        }
-
         // return a printable version of the square
         std::string str();
-        
-    protected:
+
     private:
 
         // Type of the chess piece, eg. bishop or queen
@@ -171,10 +212,10 @@ namespace chess_ai {
 
         // Colour of the chess piece
         piece_colour colour;
-        
+
         // x location of the chess piece
         unsigned x;
-        
+
         // y location of the chess piece
         unsigned y;
     };

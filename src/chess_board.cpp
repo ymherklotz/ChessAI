@@ -1,4 +1,4 @@
-#include "../include/chess_ai.hpp"
+#include "chess_ai.hpp"
 
 chess_ai::chess_board::chess_board() : SIZE(CHESS_BOARD_SIZE) {
     init_board_vector();
@@ -8,27 +8,27 @@ chess_ai::chess_board::chess_board(board_state state) : SIZE(CHESS_BOARD_SIZE) {
     unsigned vec_index, sqr_index;
 
     init_board_vector();
-    
+
     if(state == initial) {
 
         for(vector_iterator it_vec = grid.begin(); it_vec != grid.end();
             ++it_vec) {
-            
+
             for(square_iterator it_sqr = (*it_vec).begin();
                 it_sqr != (*it_vec).end(); ++it_sqr) {
                 chess_piece piece;
 
                 piece_colour colour;
-                    
+
                 if(vec_index < 3) {
                     colour = black;
                 } else {
                     colour = white;
                 }
-                
+
                 vec_index = it_vec - grid.begin();
                 sqr_index = it_sqr - (*it_vec).begin();
-                
+
                 if(vec_index == 1 || vec_index == 6) {
                     piece.set_type(pawn);
                 } else if(vec_index == 0 || vec_index == 7) {
@@ -48,7 +48,7 @@ chess_ai::chess_board::chess_board(board_state state) : SIZE(CHESS_BOARD_SIZE) {
                 piece.set_colour(colour);
                 piece.set_x(sqr_index);
                 piece.set_y(vec_index);
-                
+
                 *it_sqr = piece;
             }
         }
@@ -81,14 +81,14 @@ void chess_ai::chess_board::print_board() {
         std::cout << "---|";
     }
     std::cout << std::endl << "8 |";
-    
+
     for(unsigned y = 0; y < SIZE; ++y) {
         for(unsigned x = 0; x < SIZE; ++x) {
             std::cout << " " << grid[y][x].str() << " |";
         }
-        
+
         std::cout << std::endl << "  |";
-        
+
 
         if(y == SIZE-1) {
             std::cout << "---+";
@@ -107,9 +107,26 @@ void chess_ai::chess_board::print_board() {
     std::cout << "    a   b   c   d   e   f   g   h" << std::endl;
 }
 
+chess_ai::chess_piece chess_ai::chess_board::at(unsigned x,
+    unsigned y) {
+
+    square_iterator it_sqr;
+    chess_piece tmp_piece;
+
+    tmp_piece = *iterate_board(it_sqr, x, y);
+    return tmp_piece;
+}
+
 void chess_ai::chess_board::set_piece(chess_piece piece) {
     square_iterator it_sqr;
     *iterate_board(it_sqr, piece.x, piece.y) = piece;
+}
+
+void chess_ai::chess_board::set_piece(piece_type type, piece_colour colour,
+    unsigned x, unsigned y) {
+
+    chess_piece piece(type, colour, x, y);
+    set_piece(piece);
 }
 
 void chess_ai::chess_board::remove_piece(chess_piece piece) {
@@ -128,9 +145,9 @@ chess_ai::move_error chess_ai::chess_board::move_piece(chess_piece piece) {
 chess_ai::move_error chess_ai::chess_board::move_piece(unsigned x, unsigned y) {
     square_iterator it;
     iterate_board(it, x, y);
-    
+
     if(it->y < 7 && it->y > 0) {
-        if(it->colour == white) 
+        if(it->colour == white)
             return move_piece(x, y, x, y-1);
         return move_piece(x, y, x, y+1);
     }
@@ -139,13 +156,13 @@ chess_ai::move_error chess_ai::chess_board::move_piece(unsigned x, unsigned y) {
 
 chess_ai::move_error chess_ai::chess_board::move_piece
 (chess_ai::chess_piece piece, unsigned x, unsigned y) {
-    
+
     return move_piece(piece.x, piece.y, x, y);
 }
 
 chess_ai::move_error chess_ai::chess_board::move_piece
 (unsigned orig_x, unsigned orig_y, unsigned dest_x, unsigned dest_y) {
-    
+
     chess_piece taken;
     return move_piece(orig_x, orig_y, dest_x, dest_y, taken);
 }
@@ -153,13 +170,13 @@ chess_ai::move_error chess_ai::chess_board::move_piece
 chess_ai::move_error chess_ai::chess_board::move_piece
 (unsigned orig_x, unsigned orig_y, unsigned dest_x, unsigned dest_y,
  chess_piece& taken_piece) {
-    
+
     square_iterator it;
     square_iterator new_it;
-    
+
     iterate_board(it, orig_x, orig_y);
     iterate_board(new_it, dest_x, dest_y);
-    
+
     switch(it->type) {
     case pawn:
         return move_pawn(it, new_it, taken_piece);
@@ -175,14 +192,14 @@ chess_ai::move_error chess_ai::chess_board::move_piece
 
 chess_ai::square_iterator& chess_ai::chess_board::iterate_board
 (square_iterator& it, unsigned x, unsigned y) {
-    
+
     unsigned vec_index, sqr_index;
     for(vector_iterator it_vec = grid.begin(); it_vec != grid.end(); ++it_vec) {
         for(square_iterator it_sqr = (*it_vec).begin();
             it_sqr != (*it_vec).end(); ++it_sqr) {
             vec_index = it_vec - grid.begin();
             sqr_index = it_sqr - (*it_vec).begin();
-            
+
             if(vec_index == y && sqr_index == x) {
                 it = it_sqr;
                 return it;
@@ -194,7 +211,7 @@ chess_ai::square_iterator& chess_ai::chess_board::iterate_board
 
 chess_ai::move_error chess_ai::chess_board::move_pawn
 (square_iterator it, square_iterator new_it, chess_piece& taken_piece) {
-    
+
     chess_piece piece(it->type, it->colour, new_it->x, new_it->y);
 
     if((new_it->y - it->y == 2 && it->y == 1) ||

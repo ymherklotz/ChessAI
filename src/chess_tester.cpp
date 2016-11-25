@@ -1,4 +1,4 @@
-#include "../include/chess_tester.hpp"
+#include "chess_tester.hpp"
 
 chess_tester::chess_tester() : ts_begin(false) {
     srand(time(NULL));
@@ -29,7 +29,7 @@ int chess_tester::chess_begin_test(std::string test_name) {
     }
 
     current_test = test_name;
-    
+
     test_id = rand() % 0xffffffff;
     test_id_test = test_id;
 
@@ -41,10 +41,10 @@ void chess_tester::chess_end_test(int test_id, bool passed) {
         fprintf(stderr , "Error: the test from before has not been ended\n");
         exit(1);
     }
-    
+
     tested_pieces tmp;
     tmp.piece_name = current_test;
-    
+
     if(passed) {
         tmp.num_passed = 1;
         tmp.num_failed = 0;
@@ -52,7 +52,7 @@ void chess_tester::chess_end_test(int test_id, bool passed) {
         tmp.num_passed = 0;
         tmp.num_failed = 1;
     }
-        
+
     if(test_piece.empty() || !is_in_vec(tmp)) {
         test_piece.push_back(tmp);
     } else {
@@ -61,7 +61,7 @@ void chess_tester::chess_end_test(int test_id, bool passed) {
                 if(passed) {
                     test_piece[i].num_passed++;
                 } else {
-                    test_piece[i].num_failed++;   
+                    test_piece[i].num_failed++;
                 }
             }
         }
@@ -74,7 +74,7 @@ void chess_tester::chess_end_test_suite() {
     int pieces_passed = 0;
     int pieces_partial = 0;
     int pieces_fail = 0;
-    
+
     fprintf(stderr, "+-%10s-+-%5s-+-%6s-+-%8s-+\n", "----------", "-----",
             "------", "--------");
     fprintf(stderr, "| %10s | %5s | %6s | %8s |\n", "Piece  ", "Total", "Passed",
@@ -87,7 +87,7 @@ void chess_tester::chess_end_test_suite() {
                 test_piece[i].num_failed, test_piece[i].num_passed,
                 100.0*(double)test_piece[i].num_passed /
                 (double)(test_piece[i].num_passed + test_piece[i].num_failed));
-        
+
         if(test_piece[i].num_passed == 0) {
             pieces_fail++;
         } else if(test_piece[i].num_failed == 0) {
@@ -98,7 +98,7 @@ void chess_tester::chess_end_test_suite() {
     }
     fprintf(stderr, "+-%10s-+-%5s-+-%6s-+-%8s-+\n", "----------", "-----",
             "------", "--------");
-    
+
     fprintf(stderr, "\nTotal pieces tested: %lu\n", test_piece.size());
     fprintf(stderr, "Passed: %d\n", pieces_passed);
     fprintf(stderr, "Partially working: %d\n", pieces_partial);

@@ -29,7 +29,7 @@ namespace chess_ai {
 
     // typedefs for iterators to access elements easier
 
-    typedef std::vector<std::vector<chess_ai::chess_piece>>::
+    typedef std::vector<std::vector<chess_ai::chess_piece> >::
     iterator vector_iterator;
 
     typedef std::vector<chess_ai::chess_piece>::iterator square_iterator;
@@ -119,9 +119,16 @@ namespace chess_ai {
         // prints the current board state
         void print_board();
 
+        // returns the piece at the location
+        chess_piece at(unsigned x, unsigned y);
+
         // Set a piece somewhere on the board replacing anything that was there
         // previously
         void set_piece(chess_piece piece);
+
+        // set piece directly on board
+        void set_piece(piece_type type, piece_colour colour, unsigned x,
+            unsigned y);
 
         // removes a piece from the board at location
         void remove_piece(chess_piece piece);
@@ -140,16 +147,15 @@ namespace chess_ai {
 
         // move piece with x and y as original and final destination
         move_error move_piece(unsigned orig_x, unsigned orig_y,
-                                 unsigned dest_x, unsigned dest_y);
+            unsigned dest_x, unsigned dest_y);
 
         // move piece and return a piece that has been captured
         move_error move_piece(unsigned orig_x, unsigned orig_y,
-                                 unsigned dest_x, unsigned dest_y,
-                                 chess_piece& taken_piece);
+            unsigned dest_x, unsigned dest_y, chess_piece& taken_piece);
 
         // iterate through the list and return the pointer to change
         square_iterator& iterate_board(square_iterator& it, unsigned x,
-                                       unsigned y);
+            unsigned y);
 
 
     private:
@@ -159,14 +165,14 @@ namespace chess_ai {
 
         // moves the pawn and tests all the cases that it should.
         move_error move_pawn(square_iterator it, square_iterator new_it,
-                                chess_piece& taken_piece);
+            chess_piece& taken_piece);
 
         // The size of the chess board is a constant and hence defined by a
         // preprocessed define statement.
         const unsigned SIZE;
 
         // The actual board where the values of the pieces will be changed.
-        std::vector<std::vector<chess_piece>> grid;
+        std::vector<std::vector<chess_piece> > grid;
     };
 
     class chess_piece {
@@ -182,10 +188,20 @@ namespace chess_ai {
 
         // Finally initialise the chess piece to a specified piece
         chess_piece(piece_type type, piece_colour colour, unsigned x,
-                    unsigned y);
+            unsigned y);
 
         // destructor to clean up the variables
         ~chess_piece();
+
+        // overload == operator
+        friend bool operator==(const chess_piece& p1, const chess_piece& p2) {
+            if(p1.type == p2.type && p1.colour == p2.colour && p1.x == p2.x &&
+                p1.y == p2.y) {
+
+                return true;
+            }
+            return false;
+        }
 
         // Set the type of the chess_piece
         void set_type(piece_type type);

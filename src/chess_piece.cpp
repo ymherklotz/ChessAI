@@ -1,14 +1,14 @@
-#include "../include/chess_ai.hpp"
+#include "chess_ai.hpp"
 
 chess_ai::chess_piece::chess_piece(piece_type type, piece_colour colour) :
     type(type), colour(colour) {
-    
+
     if(colour == black) {
         y = 0;
     } else {
         y = 7;
     }
-    
+
     if(type == king) {
         x = 4;
     } else {

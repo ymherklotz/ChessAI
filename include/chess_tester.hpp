@@ -32,7 +32,7 @@ struct tested_pieces {
 };
 
 class chess_tester {
-    
+
 public:
 
     // sets all the initial values for the tester
@@ -56,7 +56,7 @@ public:
 
     // see if test is in vector
     bool is_in_vec(const tested_pieces& piece) const;
-    
+
 private:
 
     // checks if the test suite is running

@@ -12,9 +12,9 @@ CFLAGS := -g -Wall -Wextra -Wpedantic -std=c++14
 LIB :=
 INC := -I include
 
-$(TARGET): $(OBJECTS)
+$(TARGETDIR)/$(TARGET): $(OBJECTS)
 	@echo " Linking..."
-	@mkdir -p $(BUILDDIR)
+	@mkdir -p $(TARGETDIR)
 	@echo " $(CC) $^ -o $(TARGETDIR)/$(TARGET) $(LIB)"; $(CC) $^ -o $(TARGETDIR)/$(TARGET) $(LIB)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
@@ -23,7 +23,7 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 
 clean:
 	@echo " Cleaning..."
-	@echo " $(RM) -r $(BUILDDIR) $(TARGET)"; $(RM) -r $(BUILDDIR) $(TARGET)
+	@echo " $(RM) -r $(BUILDDIR) $(TARGETDIR)/$(TARGET)"; $(RM) -r $(BUILDDIR) $(TARGETDIR)/$(TARGET)
 
 # Tests
 tester:

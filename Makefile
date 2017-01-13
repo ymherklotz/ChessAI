@@ -2,7 +2,8 @@ CC := g++ # this is the main compiler
 # CC := clange --analyze # and comment out the linker last line
 SRCDIR := src
 BUILDDIR := build
-TARGET := bin/chess_ai
+TARGETDIR := bin
+TARGET := main
 
 SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name "*.$(SRCEXT)")
@@ -13,7 +14,8 @@ INC := -I include
 
 $(TARGET): $(OBJECTS)
 	@echo " Linking..."
-	@echo " $(CC) $^ -o $(TARGET) $(LIB)"; $(CC) $^ -o $(TARGET) $(LIB)
+	@mkdir -p $(BUILDDIR)
+	@echo " $(CC) $^ -o $(TARGETDIR)/$(TARGET) $(LIB)"; $(CC) $^ -o $(TARGETDIR)/$(TARGET) $(LIB)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDDIR)

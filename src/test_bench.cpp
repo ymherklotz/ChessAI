@@ -1,23 +1,28 @@
 /*
  *
- * description: This is the test_bench file for the chess_ai
+ * author: Yann Herklotz
+ * username: ymherklotz
+ * email: ymherklotz@gmail.com
  *
- * author: Yann Herklotz <ymherklotz@gmail.com>
- * date created: DD-MM-YYYY
+ * -----------------------------------------------------------------------------
+ *
+ * Main file that tests the chess ai
  *
  */
 
-#include "chess_ai.hpp"
 #include "chess_tester.hpp"
+#include "chess_piece.hpp"
 
 #include <iostream>
 
 using namespace std;
-using namespace chess_ai;
+using namespace ymhChessAI;
 
 int main(int argc, char **argv) {
-	(void)argc;
-	(void)argv;
+	cout << "Program name: " << argv[0] << endl;
+	cout << "Arguments: " << argc - 1 << endl;
+
+	cout << endl << "====== Executed Successfully ======" << endl;
 
 	return 0;
 }

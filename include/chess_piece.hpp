@@ -14,6 +14,10 @@
 #ifndef YMH_CHESS_PIECE_HPP
 #define YMH_CHESS_PIECE_HPP
 
+
+// defining seperate namespace so that I don't have to worry with duplicate
+// names
+
 namespace ymhChessAI {
 class ChessPiece {
 public:

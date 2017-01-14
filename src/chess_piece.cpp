@@ -1,12 +1,22 @@
+/*
+ *
+ * author: Yann Herklotz
+ * username: ymherklotz
+ * email: ymherklotz@gmail.com
+ *
+ * -----------------------------------------------------------------------------
+ *
+ * Chess Piece class implementation
+ *
+ */
+
 #include "chess_piece.hpp"
 
 using namespace ymhChessAI;
 
 
-// Chess Piece Base class that all the pieces inherit from
-
-ChessPiece::ChessPiece() : m_x(0), m_y(0) {
+ChessPiece::ChessPiece() : m_x(0), m_y(0), m_colour(Colour::White) {
 }
 
-ChessPiece::ChessPiece(const int& x, const int& y) : m_x(x), m_y(y) {
+ChessPiece::ChessPiece(const int& x, const int& y, const Colour& colour) : m_x(x), m_y(y), m_colour(colour) {
 }

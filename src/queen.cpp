@@ -18,7 +18,7 @@ using namespace ymhChessAI;
 Queen::Queen() : ChessPiece() {
 }
 
-Queen::Queen(const int& x, const int& y) : ChessPiece(x, y) {
+Queen::Queen(const int& x, const int& y, const Colour& colour) : ChessPiece(x, y, colour) {
 }
 
 void Queen::move(const int& x, const int& y) {

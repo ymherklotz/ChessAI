@@ -18,7 +18,7 @@ using namespace ymhChessAI;
 Knight::Knight() : ChessPiece() {
 }
 
-Knight::Knight(const int& x, const int& y) : ChessPiece(x, y) {
+Knight::Knight(const int& x, const int& y, const Colour& colour) : ChessPiece(x, y, colour) {
 }
 
 void Knight::move(const int& x, const int& y) {

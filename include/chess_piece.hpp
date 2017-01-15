@@ -3,6 +3,7 @@
  * author: Yann Herklotz
  * username: ymherklotz
  * email: ymherklotz@gmail.com
+ * date created: 13/01/17
  *
  * -----------------------------------------------------------------------------
  *
@@ -54,7 +55,7 @@ protected:
 };
 
 
-// King class that provides the class for the king
+// King class
 
 class King : public ChessPiece {
 public:
@@ -68,6 +69,9 @@ protected:
 private:
 };
 
+
+// Queen class
+
 class Queen : public ChessPiece {
 public:
 	Queen();
@@ -79,6 +83,9 @@ public:
 protected:
 private:
 };
+
+
+// Rook class
 
 class Rook : public ChessPiece {
 public:
@@ -93,6 +100,8 @@ private:
 };
 
 
+// Bishop class
+
 class Bishop : public ChessPiece {
 public:
 	Bishop();
@@ -104,6 +113,9 @@ public:
 protected:
 private:
 };
+
+
+// Knight class
 
 class Knight : public ChessPiece {
 public:
@@ -117,6 +129,9 @@ protected:
 private:
 };
 
+
+// Pawn class
+
 class Pawn : public ChessPiece {
 public:
 	Pawn();
@@ -128,6 +143,6 @@ public:
 protected:
 private:
 };
-};
+}
 
 #endif

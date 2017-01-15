@@ -3,6 +3,7 @@
  * author: Yann Herklotz
  * username: ymherklotz
  * email: ymherklotz@gmail.com
+ * date created: 13/01/17
  *
  * -----------------------------------------------------------------------------
  *
@@ -12,6 +13,7 @@
 
 #include "chess_tester.hpp"
 #include "chess_piece.hpp"
+#include "chess_board.hpp"
 
 #include <iostream>
 
@@ -21,6 +23,10 @@ using namespace ymhChessAI;
 int main(int argc, char **argv) {
 	cout << "Program name: " << argv[0] << endl;
 	cout << "Arguments: " << argc - 1 << endl;
+
+	ChessBoard cb;
+
+	cb.printBoard();
 
 	cout << endl << "====== Executed Successfully ======" << endl;
 

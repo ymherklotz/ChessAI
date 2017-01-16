@@ -12,6 +12,7 @@
  */
 
 #include "chess_piece.hpp"
+#include <iostream>
 
 using namespace ymhChessAI;
 
@@ -23,4 +24,5 @@ Knight::Knight(const int& x, const int& y, const Colour& colour) : ChessPiece(x,
 }
 
 void Knight::move(const int& x, const int& y) {
+	std::cout << "This is a Knight" << std::endl;
 }

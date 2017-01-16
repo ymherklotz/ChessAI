@@ -14,6 +14,7 @@
 #include "chess_tester.hpp"
 #include "chess_piece.hpp"
 #include "chess_board.hpp"
+#include "board_state_parser.hpp"
 
 #include <iostream>
 
@@ -23,10 +24,6 @@ using namespace ymhChessAI;
 int main(int argc, char **argv) {
 	cout << "Program name: " << argv[0] << endl;
 	cout << "Arguments: " << argc - 1 << endl;
-
-	ChessBoard cb;
-
-	cb.printBoard();
 
 	cout << endl << "====== Executed Successfully ======" << endl;
 

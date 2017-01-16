@@ -27,13 +27,11 @@ typedef std::unique_ptr<ChessPiece> chessPiecePtr;
 class ChessBoard {
 public:
 	ChessBoard();
-	ChessBoard(const ChessBoard& other) = default;
-	virtual ~ChessBoard() = default;
 
 	void printBoard();
 protected:
 private:
-	static const unsigned CHESS_BOARD_SIZE = 64;
+	static const unsigned BOARD_SIZE = 64;
 
 	boardVector board;
 };

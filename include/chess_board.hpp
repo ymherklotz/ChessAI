@@ -28,11 +28,11 @@ class ChessBoard {
 public:
 	ChessBoard();
 
-	void populateBoard();
-	void printBoard();
+	bool populateBoard();
+	bool printBoard();
 protected:
 private:
-	static const unsigned BOARD_SIZE = 64;
+	static const std::size_t BOARD_SIZE = 64;
 
 	boardVector board;
 };

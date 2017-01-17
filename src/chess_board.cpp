@@ -22,12 +22,13 @@ ChessBoard::ChessBoard() {
 		board.emplace_back(new EmptyPiece);
 }
 
-void ChessBoard::populateBoard() {
+bool ChessBoard::populateBoard() {
 	for(auto&& piece : board)
 		piece = chessPiecePtr(new Knight);
+	return true;
 }
 
-void ChessBoard::printBoard() {
+bool ChessBoard::printBoard() {
 	int i = 0;
 
 	for(auto&& piece : board) {
@@ -35,4 +36,6 @@ void ChessBoard::printBoard() {
 		piece->move(1, 2);
 		++i;
 	}
+
+	return true;
 }

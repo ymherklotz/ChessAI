@@ -30,6 +30,8 @@ class Knight;
 class Pawn;
 class EmptyPiece;
 
+typedef unsigned int boardPosition;
+
 // Colour enum class so that we can have the colours in the Chess Piece and not
 // using normal enums because of undefined errors
 
@@ -54,7 +56,7 @@ public:
 protected:
 	// current location of the piece which is protected as it can still be
 	// inherited by the piece classes
-	int m_x, m_y;
+	boardPosition m_x, m_y;
 
 	// defines what colour the piece is
 	Colour m_colour;

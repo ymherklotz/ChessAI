@@ -21,3 +21,12 @@ ChessPiece::ChessPiece() : m_x(0), m_y(0), m_colour(Colour::White) {
 
 ChessPiece::ChessPiece(const int& x, const int& y, const Colour& colour) : m_x(x), m_y(y), m_colour(colour) {
 }
+
+EmptyPiece::EmptyPiece() : ChessPiece() {
+}
+
+EmptyPiece::EmptyPiece(const int& x, const int& y, const Colour& colour) : ChessPiece(x, y, colour) {
+}
+
+void EmptyPiece::move(const int& x, const int& y) {
+}

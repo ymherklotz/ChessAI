@@ -25,6 +25,10 @@ int main(int argc, char **argv) {
 	cout << "Program name: " << argv[0] << endl;
 	cout << "Arguments: " << argc - 1 << endl;
 
+	ChessBoard cb;
+	cb.populateBoard();
+	cb.printBoard();
+
 	cout << endl << "====== Executed Successfully ======" << endl;
 
 	return 0;

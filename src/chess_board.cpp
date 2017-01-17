@@ -18,6 +18,13 @@ using namespace ymhChessAI;
 
 
 ChessBoard::ChessBoard() {
+	for(unsigned i = 0; i < BOARD_SIZE; ++i)
+		board.emplace_back(new EmptyPiece);
+}
+
+void ChessBoard::populateBoard() {
+	for(auto&& piece : board)
+		piece = chessPiecePtr(new Knight);
 }
 
 void ChessBoard::printBoard() {

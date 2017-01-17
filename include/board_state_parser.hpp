@@ -20,6 +20,8 @@
 #include <fstream>
 
 namespace ymhChessAI {
+class BoardStateParser;
+
 typedef std::vector<std::string> boardStateData;
 
 class BoardStateParser {

@@ -20,6 +20,16 @@
 // names
 
 namespace ymhChessAI {
+enum class Colour;
+class ChessPiece;
+class King;
+class Queen;
+class Rook;
+class Bishop;
+class Knight;
+class Pawn;
+class EmptyPiece;
+
 // Colour enum class so that we can have the colours in the Chess Piece and not
 // using normal enums because of undefined errors
 
@@ -122,6 +132,16 @@ class Pawn : public ChessPiece {
 public:
 	Pawn();
 	Pawn(const int& x, const int& y, const Colour& colour);
+
+	virtual void move(const int& x, const int& y);
+protected:
+private:
+};
+
+class EmptyPiece : public ChessPiece {
+public:
+	EmptyPiece();
+	EmptyPiece(const int& x, const int& y, const Colour& colour);
 
 	virtual void move(const int& x, const int& y);
 protected:

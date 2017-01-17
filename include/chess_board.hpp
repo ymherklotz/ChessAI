@@ -28,6 +28,7 @@ class ChessBoard {
 public:
 	ChessBoard();
 
+	void populateBoard();
 	void printBoard();
 protected:
 private:

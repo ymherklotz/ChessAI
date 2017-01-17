@@ -20,6 +20,8 @@
 #include <memory>
 
 namespace ymhChessAI {
+class ChessBoard;
+
 typedef std::vector<std::unique_ptr<ChessPiece> >::iterator boardIterator;
 typedef std::vector<std::unique_ptr<ChessPiece> > boardVector;
 typedef std::unique_ptr<ChessPiece> chessPiecePtr;

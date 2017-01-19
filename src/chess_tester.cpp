@@ -10,10 +10,9 @@ chess_tester::chess_tester() : ts_begin(false) {
 }
 
 void chess_tester::chess_begin_test_suite() {
-	if(ts_begin) {
+	if(ts_begin)
 		fprintf(stderr, "Error: already started test suite\n");
-		exit(1);
-	}
+	exit(1);
 
 	ts_begin = true;
 }

@@ -28,7 +28,6 @@ BoardStateParser::~BoardStateParser() {
 
 void BoardStateParser::populateBoardState() {
 	std::string currentLine;
-	unsigned index;
 
 	boardStateVector.reserve(BOARD_SIZE);
 
@@ -55,9 +54,7 @@ unsigned BoardStateParser::stringToInt(const std::string& str) {
 std::string BoardStateParser::getStateFromLine(const std::string& str) {
 	std::string state;
 
-	for(unsigned i = 0; i < str.size(); ++i)
-		if(i > 1)
-			state += str[i];
+	state = str.substr(2, str.length() - 2);
 
 	return state;
 }

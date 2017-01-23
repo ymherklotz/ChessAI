@@ -12,6 +12,7 @@
  */
 
 #include "chess_piece.hpp"
+#include "chess_constants.hpp"
 
 using namespace ymhChessAI;
 
@@ -23,4 +24,11 @@ Pawn::Pawn(const int& x, const int& y, const Colour& colour) : ChessPiece(x, y, 
 }
 
 void Pawn::move(const int& x, const int& y) {
+	if(m_colour == Colour::White) {
+		if(m_y == ChessConstants::WHITE_PAWN_ROW) {
+		}
+	} else {
+		if(m_y == ChessConstants::BLACK_PAWN_ROW) {
+		}
+	}
 }

@@ -25,7 +25,7 @@ ChessPiece::ChessPiece(const int& x, const int& y, const Colour& colour) : m_x(x
 EmptyPiece::EmptyPiece() : ChessPiece() {
 }
 
-EmptyPiece::EmptyPiece(const int& x, const int& y, const Colour& colour) : ChessPiece(x, y, colour) {
+EmptyPiece::EmptyPiece(const int& x, const int& y) : ChessPiece(x, y, Colour::None) {
 }
 
 void EmptyPiece::move(const int& x, const int& y) {

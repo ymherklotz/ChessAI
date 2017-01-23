@@ -37,7 +37,8 @@ typedef unsigned int boardPosition;
 
 enum class Colour {
 	White,
-	Black
+	Black,
+	None
 };
 
 
@@ -143,7 +144,7 @@ private:
 class EmptyPiece : public ChessPiece {
 public:
 	EmptyPiece();
-	EmptyPiece(const int& x, const int& y, const Colour& colour);
+	EmptyPiece(const int& x, const int& y);
 
 	virtual void move(const int& x, const int& y);
 protected:

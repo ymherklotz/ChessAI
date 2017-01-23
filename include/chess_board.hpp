@@ -34,8 +34,6 @@ public:
 	bool printBoard();
 protected:
 private:
-	static const std::size_t BOARD_SIZE = 64;
-
 	boardVector board;
 };
 }

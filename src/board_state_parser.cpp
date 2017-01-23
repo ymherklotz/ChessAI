@@ -12,6 +12,7 @@
  */
 
 #include "board_state_parser.hpp"
+#include "chess_constats.hpp"
 
 using namespace ymhChessAI;
 
@@ -29,7 +30,7 @@ BoardStateParser::~BoardStateParser() {
 void BoardStateParser::populateBoardState() {
 	std::string currentLine;
 
-	boardStateVector.reserve(BOARD_SIZE);
+	boardStateVector.reserve(ChessConstants::BOARD_SIZE);
 
 	if(!boardFile.is_open())
 		throw "Error: Can't open file";

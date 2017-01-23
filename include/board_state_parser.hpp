@@ -36,8 +36,6 @@ public:
 	static std::string getStateFromLine(const std::string& str);
 protected:
 private:
-	static const std::size_t BOARD_SIZE = 64;
-
 	boardStateData boardStateVector;
 	std::ifstream boardFile;
 };
